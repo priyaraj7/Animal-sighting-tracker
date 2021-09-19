@@ -3,15 +3,15 @@ version: "3.8"
 services:
   db:
     image: postgres:13-alpine
-    container_name: example-db
+    container_name: animals-db
     hostname: db
     env_file:
       - .env
-    volumes:
+    volumes: # this is for imaging
       - ./.data/db:/var/lib/postgresql/data
       - ./pg:/var/tmp/pg
     ports:
       - 5442:5432
-    healthcheck:
+    healthcheck: # to check docker container health ---> exit code 0 is health, non zero is not healthy
       test: pg_isready -U postgres || exit 1
     stop_grace_period: 1m

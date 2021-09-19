@@ -89,3 +89,65 @@ ALTER TABLE ONLY public.tasks
 -- PostgreSQL database dump complete
 --
 
+--
+-- Name: tasks_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+drop TABLE species;
+drop table individuals;
+drop table sightings;
+
+CREATE TABLE species (
+	id integer primary key generated always as identity,
+	common_name VARCHAR ( 50 ) UNIQUE NOT NULL,
+	scientific_name VARCHAR ( 50 ) NOT NULL,
+	estimated_count integer,
+    conservation_status VARCHAR (2),
+	created_on TIMESTAMP WITH TIME zone DEFAULT CURRENT_TIMESTAMP Not null
+);
+
+INSERT INTO 
+    species(common_name,scientific_name, estimated_count,conservation_status, created_on)
+VALUES
+    ('Javan Rhinoceros','Rhinoceros sondaicus', '60', 'CE','2016-06-22 19:10:25-07'),
+    ('Vaquita',' Phocoena sinus', NULL, 'CE','2017-06-22 19:10:25-07'),
+    ('Mountain Gorilla','Gorilla beringei beringei', null, 'CE','2016-06-22 20:20:25-07'),
+    ('Tigers','Panthera tigris', null, 'CE','2020-06-22 19:10:25-07')
+RETURNING *;
+
+CREATE TABLE individuals (
+	id serial PRIMARY KEY,
+	nick_name VARCHAR ( 50 ) UNIQUE NOT NULL,
+	species_id serial NOT NULL,
+	seen_on TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+     CONSTRAINT fk_species
+      FOREIGN KEY(species_id) 
+	  REFERENCES species(id)
+);
+
+ALTER TABLE individuals 
+    ALTER COLUMN species_id TYPE INT,
+    ALTER COLUMN nick_name TYPE VARCHAR ( 50 );
+
+insert into individuals(nick_name, seen_on, species_id) values ('jocky','2016-06-22 20:20:25-07', 2),('chintu','2016-06-22 20:20:25-07', 3);
+
+
+CREATE TABLE sightings (
+	id serial PRIMARY KEY,
+    sight_time_date TIMESTAMP WITH TIME ZONE,
+	location VARCHAR ( 50 ) UNIQUE NOT NULL,
+    healthy BOOLEAN NOT NULL,
+    email VARCHAR(50),
+    individual_id INT NOT NULL,
+	created_on TIMESTAMP WITH TIME ZONE NOT NULL  DEFAULT CURRENT_TIMESTAMP,
+      CONSTRAINT fk_individuals
+      FOREIGN KEY(individual_id) 
+	  REFERENCES individuals(id)
+);
+
+ALTER TABLE sightings
+RENAME location TO place;
+
+insert into sightings(sight_time_date ,place, healthy, email, individual_id)
+   values ('2016-06-22 20:20:25-07','Olympic National Park', true, 'abc@gmail.com', 2),
+   ('2016-06-22 20:20:25-07','Zion National Park',false, 'xyz@gmail.com', 3);
+
