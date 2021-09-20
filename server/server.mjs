@@ -1,15 +1,17 @@
 import express from "express";
-import mime from "mime-types";
+import mime from "mime-types"; //Lookup the content-type associated with a file.
+//
 
-import taskRouter from "./taskRouter.mjs";
+import speciesRouter from "./speciesRouter.mjs";
 
 const app = express();
 
-app.use("/api/tasks", taskRouter);
-
-app.get("/api/ping", (request, response) =>
-  response.json({ response: "pong" }),
-);
+app.use("/api/species", speciesRouter);
+//A health check for the API that won't return any account-specific information.
+//won't start until it pings this end point successfully.
+app.get("/api/ping", (request, response) => {
+  response.json({ response: "pong" });
+});
 
 if (process.env?.SERVE_REACT?.toLowerCase() === "true") {
   app.use(
