@@ -11,7 +11,8 @@ speciesRouter.get("/", async (request, response) => {
 
 speciesRouter.use(express.json());
 speciesRouter.post("/", async (request, response) => {
-  const specie = await db.listSpecies(request.body.name);
+  console.log(request.body);
+  const specie = await db.addSpecies(request.body.name);
   response.status(201).json(specie);
 });
 

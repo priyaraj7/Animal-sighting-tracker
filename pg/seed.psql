@@ -151,3 +151,8 @@ insert into sightings(sight_time_date ,place, healthy, email, individual_id)
    values ('2016-06-22 20:20:25-07','Olympic National Park', true, 'abc@gmail.com', 2),
    ('2016-06-22 20:20:25-07','Zion National Park',false, 'xyz@gmail.com', 3);
 
+
+   UPDATE species
+SET estimated_count = 7 
+WHERE id = 3;
+

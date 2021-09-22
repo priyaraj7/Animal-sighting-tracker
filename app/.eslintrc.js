@@ -9,26 +9,26 @@ module.exports = {
   ],
   rules: {
     "import/no-unresolved": "error",
-    "import/order": [
-      "error",
-      {
-        alphabetize: { order: "asc" },
-        groups: [
-          "builtin",
-          "external",
-          "internal",
-          "parent",
-          "sibling",
-          "index",
-        ],
-        "newlines-between": "always",
-        pathGroups: [
-          { pattern: "react", group: "builtin" },
-          { pattern: "react-dom", group: "builtin" },
-        ],
-        pathGroupsExcludedImportTypes: ["builtin"],
-      },
-    ],
+    //   "import/order": [
+    //     "error",
+    //     {
+    //       alphabetize: { order: "asc" },
+    //       groups: [
+    //         "builtin",
+    //         "external",
+    //         "internal",
+    //         "parent",
+    //         "sibling",
+    //         "index",
+    //       ],
+    //       "newlines-between": "always",
+    //       pathGroups: [
+    //         { pattern: "react", group: "builtin" },
+    //         { pattern: "react-dom", group: "builtin" },
+    //       ],
+    //       pathGroupsExcludedImportTypes: ["builtin"],
+    //     },
+    //   ],
   },
   settings: {
     "import/resolver": {

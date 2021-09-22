@@ -1,8 +1,7 @@
 import React from "react";
 
-import * as apiClient from "./apiClient";
-
 import SpeciesList from "./SpeciesList";
+import * as apiClient from "./apiClient";
 
 //import { listSpecies } from "../../server/db.mjs";
 
@@ -14,6 +13,7 @@ const Species = () => {
     apiClient.addSpecies(species).then(loadSpecies);
 
   React.useEffect(() => {
+    console.log("use effect ran");
     loadSpecies();
   }, []);
   return (
